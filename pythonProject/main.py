@@ -4,6 +4,9 @@ MAX_LINES = 6
 MIN_BET = 1
 MAX_BET = 100
 
+ROWS = 3
+COLS = 3
+
 symbol_count = {
     "A": 2,
     "B": 3,
@@ -36,6 +39,15 @@ def get_slot_machine_spin(rows, cols, symbols):
         columns.append(column)
 
     return columns
+
+def print_slot_machine(columns):
+    for row in range(len(columns[0])):
+        for i, column in enumerate(columns):
+            if i != len(columns) - 1:
+                print(column[row], end = " | ")
+            else:
+                print(column[row], end = "")
+        print()
 
 def get_deposit():
     while True:
@@ -81,6 +93,8 @@ def get_bet():
 
 def spin(lines, bet):
     print(f"Your spin is ${bet} on {lines} lines for a total of ${lines * bet}")
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
 
 def main():
     balance = get_deposit()
@@ -96,7 +110,7 @@ def main():
         print("----------------")
         while True:
             try:
-                option = int(input("What would you like to do? "))
+                option = int(input("What would you like to do?: "))
                 break
             except ValueError:
                 print("Please enter a valid option!")
